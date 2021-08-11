@@ -1,13 +1,27 @@
 const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 const app = express();
 
+
+
 const registerRouter = require('./routes/register_router');
+
+const loginRouter = require('./routes/login_router');
+const logoutRouter = require('./routes/logout_router');
+const activateRouter = require('./routes/activate_router');
+const refreshRouter = require('./routes/refresh_router');
+const usersRouter = require('./routes/users_router');
 
 
 
 const config = require('config');
+const { response } = require('express');
 const PORT = config.get('serverPort');
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,15 +35,26 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", registerRouter);
 
+app.use("/api/auth", loginRouter);
+app.use("/api/auth", logoutRouter);
+app.use("/api/auth", activateRouter);
+app.use("/api/auth", refreshRouter);
+app.use("/api/users", usersRouter);
+
+
+
+
+
+
 
   //START SERVER
-const start = () => {
+const start = async() => {
     try {
         app.listen(PORT, () => {
             console.log(`START SERVER! on port ${PORT}`);
         })
     } catch(e) {
-
+console.log(e);
     }
 }
 start();

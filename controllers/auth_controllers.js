@@ -67,6 +67,46 @@ class UsersAuth_controllers {
         }
     }
     //LOGIN USERS
-    
+   
+    async loginUsers(req, res){
+        try{
+
+        } catch(e) {
+            console.log(e);
+        }
+    }
+    //LOGOUT USERS
+    async logoutUsers(req, res){
+        try{
+
+        } catch(e) {
+            console.log(e);
+        }
+    } 
+    //ACTIVATE USERS
+    async activateUsers(req, res){
+        try{
+
+        } catch(e) {
+            console.log(e);
+        }
+    }       
+    //REFRESH
+    async refreshUsers(req, res){
+        try{
+
+        } catch(e) {
+            console.log(e);
+        }
+    }
+    //GET USERS
+    async getUsers(req, res){
+        try{
+            res.status(200).json(['222']);
+        } catch(e) {
+            console.log(e);
+        }
+    }
+   
 }
 module.exports = new UsersAuth_controllers();
