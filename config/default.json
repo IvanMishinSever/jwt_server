@@ -1,3 +1,5 @@
 {
-    "serverPort": 4001
+    "serverPort": 4001,
+    "jwt-access-secret":"africa-forever",
+    "jwt-refresh-secret":"argentina-forever"
 }

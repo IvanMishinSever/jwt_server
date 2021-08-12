@@ -25,6 +25,7 @@ check('password', "password must be longer").isLength({min:3, max:12})
 
 class UsersAuth_controllers {
 //REGISTRATION USERS
+/*
     async registerUsers(req, res) {
         const {useremail, user_password} = req.body;
         try{
@@ -66,6 +67,7 @@ class UsersAuth_controllers {
             res.send({message:"server error"});
         }
     }
+    */
     //LOGIN USERS
    
     async loginUsers(req, res){
