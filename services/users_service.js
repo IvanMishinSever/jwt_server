@@ -22,7 +22,8 @@ const mailService = require('./mail_service');
 
 const tokenService = require('./token_service');
 const UserDto = require('../dto/user_dto');
-
+const config = require('config');
+const url= config.get('api-url');
 
 
 class UserService {
@@ -65,7 +66,7 @@ async registerUsers(useremail, user_password) {
         //
         //
         
-        await mailService.sendActivationMail(useremail, activationLink);
+        await mailService.sendActivationMail(useremail, `${url}/api/auth/activate/${activationLink}`);
 
         const userDto = new UserDto(getnewUser.rows[0]);
         //console.log(userDto);
@@ -80,6 +81,34 @@ async registerUsers(useremail, user_password) {
         console.log(e);
         res.send({message:"server error"});
     }
+}
+
+//ACTIVATION MAIL
+async activate(activationLink) {
+    console.log(activationLink);
+    try {
+        const user = await pool.query(`
+        SELECT id FROM users WHERE activation_link = $1`, [activationLink]);
+        if (user.rows.length === 0) {
+            //throw Error('НЕАКТИВНАЯ ССЫЛКА!');
+            return {
+                error: 'НЕАКТИВНАЯ ССЫЛКА!'
+            }
+        }
+       // console.log(user.rows[0]);
+        //console.log(user);
+    
+        const idUser = user.rows[0].id;
+        await pool.query(`UPDATE  users SET is_activated = 'true' WHERE id = $1`, [idUser]);
+        
+        return {
+            message: `User ${idUser} activated!`
+        } 
+        
+    } catch(e){
+        console.log(e);
+    }
+
 }
 }
 module.exports = new UserService();

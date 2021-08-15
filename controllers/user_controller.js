@@ -1,6 +1,8 @@
 const userService = require('../services/users_service');
 //const { loginUsers } = require('./auth_controllers');
 const {validationResult} = require('express-validator');
+const config = require('config');
+const clientUrl = config.get('client-url');
 
 class UserController {
     async registration(req, res, next) {
@@ -25,7 +27,21 @@ class UserController {
     }
     async login(req, res, next){
 
-    }  
+    } 
+    async activate(req, res, next) {
+        try {
+
+            
+            const activationLink = req.params.link;
+            const act = await userService.activate(activationLink);
+            return  res.redirect(clientUrl);
+         //  console.log(act);
+           // return res.status;
+
+        } catch(e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new UserController();

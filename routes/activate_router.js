@@ -1,12 +1,12 @@
 
 const express = require('express');
 const {check} = require('express-validator');
-const authControllers = require('../controllers/auth_controllers.js');
+const userControllers = require('../controllers/user_controller');
 
 
 
 const activateRouter = express.Router();
 
-activateRouter.get('/activate/:link',authControllers.activateUsers);
+activateRouter.get('/activate/:link',userControllers.activate);
 
 module.exports = activateRouter;
