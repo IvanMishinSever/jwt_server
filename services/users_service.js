@@ -19,7 +19,7 @@ const pool = new Pool({
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('./mail_service');
-const {validationResult} = require('express-validator');
+
 const tokenService = require('./token_service');
 const UserDto = require('../dto/user_dto');
 
@@ -32,13 +32,9 @@ async registerUsers(useremail, user_password) {
    // console.log(req.body);
     try{
 
-       /*
-        //result validation
-       const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({message:"uncorrect reqest validation!"})
-        }
-        */
+       
+        
+        
         //
         const candidate = await pool.query(`
         SELECT * FROM users WHERE useremail = $1
