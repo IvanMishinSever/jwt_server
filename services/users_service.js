@@ -19,6 +19,7 @@ const pool = new Pool({
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('./mail_service');
+const ApiError = require('../exceptions/api_error');
 
 const tokenService = require('./token_service');
 const UserDto = require('../dto/user_dto');
@@ -31,7 +32,7 @@ class UserService {
 async registerUsers(useremail, user_password) {
    // const {useremail, user_password} = req.body;
    // console.log(req.body);
-    try{
+   
 
        
         
@@ -44,9 +45,11 @@ async registerUsers(useremail, user_password) {
         if (candidate.rows.length > 0) {
            // return useremail.status(400).json({message:`User with email ${useremail} exist`});
            //throw new Error(`User with email ${useremail} exist`);
-           return {
+          /* return {
                error: `User with email ${useremail} exist`
            }
+          */ 
+          throw ApiError.BedRequest(`User with email ${useremail} exist`);
         }
         
         // if OK new USER
@@ -77,23 +80,22 @@ async registerUsers(useremail, user_password) {
         return {...tokens, user: userDto}
 
 
-    } catch(e) {
-        console.log(e);
-        res.send({message:"server error"});
-    }
+  
 }
 
 //ACTIVATION MAIL
 async activate(activationLink) {
     console.log(activationLink);
-    try {
+   // try {
         const user = await pool.query(`
         SELECT id FROM users WHERE activation_link = $1`, [activationLink]);
         if (user.rows.length === 0) {
             //throw Error('НЕАКТИВНАЯ ССЫЛКА!');
-            return {
+           /* return {
                 error: 'НЕАКТИВНАЯ ССЫЛКА!'
             }
+            */
+           throw ApiError.BedRequest('НЕАКТИВНАЯ ССЫЛКА!');
         }
        // console.log(user.rows[0]);
         //console.log(user);
@@ -105,9 +107,9 @@ async activate(activationLink) {
             message: `User ${idUser} activated!`
         } 
         
-    } catch(e){
-        console.log(e);
-    }
+  //  } catch(e){
+  //      console.log(e);
+  //  }
 
 }
 }

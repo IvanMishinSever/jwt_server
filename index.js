@@ -3,7 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-
+const errorMiddleware = require('./middlewares/error_middleware');
 
 
 const registerRouter = require('./routes/register_router');
@@ -46,7 +46,8 @@ app.use("/api/users", usersRouter);
 
 
 
-
+// middleware in the END!!!!!!
+app.use(errorMiddleware);
   //START SERVER
 const start = async() => {
     try {

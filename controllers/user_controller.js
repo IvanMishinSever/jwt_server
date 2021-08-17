@@ -21,7 +21,8 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
             return res.json(userData);
         } catch(e) {
-            console.log(e);
+           // console.log(e); // НЕ ПРИХОДИТ СЮДА ОШИБКА????
+           next(e);
         }
       
     }
@@ -39,7 +40,8 @@ class UserController {
            // return res.status;
 
         } catch(e) {
-            console.log(e);
+            //console.log(e);
+            next(e);
         }
     }
 }
