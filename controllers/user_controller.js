@@ -3,6 +3,7 @@ const userService = require('../services/users_service');
 const {validationResult} = require('express-validator');
 const config = require('config');
 const clientUrl = config.get('client-url');
+const ApiError = require('../exceptions/api_error');
 
 class UserController {
     async registration(req, res, next) {
@@ -13,7 +14,9 @@ class UserController {
             //result validation
        const errors = validationResult(req);
        if (!errors.isEmpty()) {
-           return res.status(400).json({message:"uncorrect reqest validation!"})
+          // return res.status(400).json({message:"uncorrect reqest validation!"})
+          console.log(errors);
+            return next(ApiError.BedRequest('uncorrect reqest validation!', errors.array()));
        }
 
 

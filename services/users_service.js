@@ -49,7 +49,7 @@ async registerUsers(useremail, user_password) {
                error: `User with email ${useremail} exist`
            }
           */ 
-          throw ApiError.BedRequest(`User with email ${useremail} exist`);
+          throw ApiError.BedRequest(`User with the email ${useremail}  already exists`);
         }
         
         // if OK new USER
