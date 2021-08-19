@@ -112,5 +112,32 @@ async activate(activationLink) {
   //  }
 
 }
+
+//LOGIN
+async login(useremail, user_password) {
+    const user = await pool.query(`
+    SELECT * FROM users WHERE useremail = $1
+    `,[useremail]);
+    console.log(user);
+    if (user.rows.length === 0) {
+       throw ApiError.BedRequest(`User with the email ${useremail}  is NOT found!`);
+    }
+    //CHECKING EQUAL PASSWORDS
+    const gotpassword = user.rows[0].user_password;
+    console.log(gotpassword);
+    const isPassEquels = await bcrypt.compare(user_password, gotpassword);
+    if (!isPassEquels) {
+        throw ApiError.BedRequest(`Wrong password!`);
+     }
+     //
+     console.log(user);
+     const userDto = new UserDto(user.rows[0]);
+     const tokens = tokenService.generateTokens({...userDto});
+     //console.log(tokens);
+     //console.log(userDto.id +" " + tokens.refreshToken);
+     await tokenService.saveToken(userDto.id, tokens.refreshToken);
+     return {...tokens, user: userDto}
+}
+
 }
 module.exports = new UserService();
