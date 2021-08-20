@@ -37,19 +37,19 @@ class TokenService {
     //checking token for existing at the userId- if user has already logged
     async saveToken(userId, refreshToken) {
        // console.log(userId +" " + refreshToken);
-        /*
+        
         const tokenData = await pool.query(`
         SELECT refresh_tokens FROM refresh_tokens WHERE user_id = $1
         `,[userId]);
+        console.log(tokenData);
         if (tokenData.rows.length > 0) {
             
-           const token = await pool.query(`INSERT INTO refresh_tokens (user_id, refresh_token)
-            VALUES ($1, $2)
-            `, [userId, refreshToken]);   
+           const token = await pool.query(`UPDATE  refresh_tokens SET refresh_token = $1
+           WHERE user_id = $2`, [refreshToken, userId]);   
            // return res.status(200).json({message:`User had token and had been rewriten`});
                 return token;
         }
-        */
+        
 
        //WITHOUT CHECKING USER'S TOKEN
 
@@ -62,6 +62,12 @@ class TokenService {
 
 
 
+    }
+    //REMOVE TOKEN
+    async removeToken(refreshToken) {
+        const tokenData = await pool.query(`DELETE FROM refresh_tokens
+    WHERE refresh_token = $1 `,[refreshToken]);
+    return tokenData;
     }
 }
 module.exports = new TokenService();
