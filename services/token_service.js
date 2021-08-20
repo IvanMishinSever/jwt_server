@@ -41,7 +41,7 @@ class TokenService {
         const tokenData = await pool.query(`
         SELECT refresh_tokens FROM refresh_tokens WHERE user_id = $1
         `,[userId]);
-        console.log(tokenData);
+        //console.log(tokenData);
         if (tokenData.rows.length > 0) {
             
            const token = await pool.query(`UPDATE  refresh_tokens SET refresh_token = $1

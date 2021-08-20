@@ -1,12 +1,12 @@
 
 const express = require('express');
 const {check} = require('express-validator');
-const authControllers = require('../controllers/auth_controllers.js');
+const userControllers = require('../controllers/user_controller.js');
 
 
 
 const logoutRouter = express.Router();
 
-logoutRouter.post('/logout',authControllers.logoutUsers);
+logoutRouter.post('/logout',userControllers.logout);
 
 module.exports = logoutRouter;
