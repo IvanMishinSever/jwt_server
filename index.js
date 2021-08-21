@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const errorMiddleware = require('./middlewares/error_middleware');
-
+const authMiddleware = require('./middlewares/auth_middleware');
 
 const registerRouter = require('./routes/register_router');
 
@@ -39,7 +39,7 @@ app.use("/api/auth", loginRouter);
 app.use("/api/auth", logoutRouter);
 app.use("/api/auth", activateRouter);
 app.use("/api/auth", refreshRouter);
-app.use("/api/users", usersRouter);
+app.use("/api/users",authMiddleware, usersRouter);
 
 
 
@@ -47,7 +47,9 @@ app.use("/api/users", usersRouter);
 
 
 // middleware in the END!!!!!!
+
 app.use(errorMiddleware);
+
   //START SERVER
 const start = async() => {
     try {

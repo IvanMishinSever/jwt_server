@@ -34,6 +34,7 @@ class UserController {
             const {useremail, user_password} = req.body;
             const  userData = await userService.login(useremail, user_password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
+           
             return res.json(userData);
         } catch (e) {
             //console.log(e);
@@ -42,6 +43,7 @@ class UserController {
         
 
     } 
+    //ACTIVATION
     async activate(req, res, next) {
         try {
 
@@ -57,6 +59,7 @@ class UserController {
             next(e);
         }
     }
+    //LOGOUT
     async logout(req, res, next) {
         try{
            console.log('token delete');
@@ -69,6 +72,33 @@ class UserController {
 
         } catch(e) {
             next(e);
+        }
+    }
+    //REFRESH
+    async refresh(req, res, next) {
+       // console.log(req);
+        try{
+            const {refreshToken} = req.cookies;
+            console.log(req.cookies);
+            const  userData = await userService.refresh(refreshToken);
+            res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
+            return res.json(userData);
+        } catch(e) {
+            console.log('no start refresh controller');
+            next(e);
+        }
+    }
+    //GET ALL USERS
+    async getAllUsers(req, res, next) {
+        try{
+            console.log('work get');
+            const users = await userService.getAllUsers();
+            console.log(users);
+             return res.json(users);
+
+        } catch(e) {
+            console.log(e);
+            //next(e);
         }
     }
 }

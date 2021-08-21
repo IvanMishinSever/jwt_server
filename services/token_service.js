@@ -27,7 +27,7 @@ const pool = new Pool({
 //
 class TokenService {
     generateTokens(payload) {
-        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'30m'});
+        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'30m'}); //LIFE TOKENS
         const refreshToken = jwt.sign(payload, jwrRs, {expiresIn:'30d'});
         return {
             accessToken,
@@ -66,6 +66,31 @@ class TokenService {
     //REMOVE TOKEN
     async removeToken(refreshToken) {
         const tokenData = await pool.query(`DELETE FROM refresh_tokens
+    WHERE refresh_token = $1 `,[refreshToken]);
+    return tokenData;
+    }
+    //VALIDATION TOKENS
+    validateAccessToken(token) {
+        try{
+            const userData = jwt.verify(token, jwrAs);
+            return userData;
+        } catch(e){
+            return null;
+        }
+    }
+    validateRefreshToken(token) {
+        try{
+            console.log('start valid refresh token');
+            const userData = jwt.verify(token, jwrRs);
+            return userData;
+        } catch(e){
+            console.log('no valid refresh token')
+            return null;
+        }
+}
+    //FIND TOKEN
+    async findToken(refreshToken) {
+        const tokenData = await pool.query(`SELECT refresh_token FROM refresh_tokens
     WHERE refresh_token = $1 `,[refreshToken]);
     return tokenData;
     }

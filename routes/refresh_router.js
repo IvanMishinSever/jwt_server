@@ -1,12 +1,12 @@
 
 const express = require('express');
 const {check} = require('express-validator');
-const authControllers = require('../controllers/auth_controllers.js');
+const userControllers = require('../controllers/user_controller.js');
 
 
 
 const refreshRouter = express.Router();
 
-refreshRouter.get('/refresh',authControllers.refreshUsers);
+refreshRouter.get('/refresh',userControllers.refresh);
 
 module.exports = refreshRouter;

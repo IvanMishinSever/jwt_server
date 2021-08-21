@@ -25,6 +25,8 @@ const tokenService = require('./token_service');
 const UserDto = require('../dto/user_dto');
 const config = require('config');
 const url= config.get('api-url');
+const secretAccessToken= config.get('jwt-access-secret');
+const secretRefreshToken= config.get('jwt-refresh-secret');
 
 
 class UserService {
@@ -144,6 +146,58 @@ async logout(refreshToken) {
     const token = tokenService.removeToken(refreshToken);
     
     return token;
+}
+
+//REFRESH
+//check tokens
+/*
+validateAccessToken(token) {
+    try{
+        const userData = jwt.verify(token, secretAccessToken);
+        return userData;
+    } catch(e){
+        return null;
+    }
+}
+validateRefreshToken(token) {
+    try{
+        const userData = jwt.verify(token, secretRefreshToken);
+        return userData;
+    } catch(e){
+        return null;
+    }
+}
+*/
+
+async refresh(refreshToken) {
+    if (!refreshToken) {
+        console.log('no refresh token');
+         throw ApiError.UnauthorisedError();
+
+    }
+    const  userData = tokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = tokenService.findToken(refreshToken); 
+    console.log(userData);
+    console.log(tokenFromDb.rows);
+
+
+/*
+    const user = await pool.query(`
+    SELECT * FROM users WHERE user_id = $1
+    `,[useremail]);
+    const userDto = new UserDto(user.rows[0]);
+    const tokens = tokenService.generateTokens({...userDto});
+    //console.log(tokens);
+    //console.log(userDto.id +" " + tokens.refreshToken);
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    return {...tokens, user: userDto}
+*/
+
+}
+async getAllUsers() {
+    const users = await pool.query(`SELECT * FROM users`);
+   // console.log(users);
+    return users.rows;
 }
 }
 module.exports = new UserService();
