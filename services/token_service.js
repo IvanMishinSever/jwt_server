@@ -27,7 +27,7 @@ const pool = new Pool({
 //
 class TokenService {
     generateTokens(payload) {
-        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'30m'}); //LIFE TOKENS
+        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'40s'}); //LIFE TOKENS
         const refreshToken = jwt.sign(payload, jwrRs, {expiresIn:'30d'});
         return {
             accessToken,
@@ -90,9 +90,12 @@ class TokenService {
 }
     //FIND TOKEN
     async findToken(refreshToken) {
+        console.log(refreshToken);
+        console.log('start find token');
         const tokenData = await pool.query(`SELECT refresh_token FROM refresh_tokens
     WHERE refresh_token = $1 `,[refreshToken]);
-    return tokenData;
+    console.log(tokenData.rows[0]);
+    return tokenData.rows[0];
     }
 }
 module.exports = new TokenService();

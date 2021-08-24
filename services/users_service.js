@@ -51,7 +51,7 @@ async registerUsers(useremail, user_password) {
                error: `User with email ${useremail} exist`
            }
           */ 
-          throw ApiError.BedRequest(`User with the email ${useremail}  already exists`);
+          throw ApiError.BedRequestAlreadyExist(`User with the email ${useremail}  already exists`);
         }
         
         // if OK new USER
@@ -175,23 +175,35 @@ async refresh(refreshToken) {
          throw ApiError.UnauthorisedError();
 
     }
+    console.log('start refresh service');
     const  userData = tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDb = tokenService.findToken(refreshToken); 
+    const tokenFromDb = await tokenService.findToken(refreshToken); 
     console.log(userData);
-    console.log(tokenFromDb.rows);
+    console.log(tokenFromDb);
+    if (userData) {
+        console.log("VALID REFRESH TOKEN OK");;
+    }
+    if (tokenFromDb) {
+        console.log(" REFRESH TOKEN EXIST");;
+    }
 
 
-/*
+
+    if (!userData || !tokenFromDb) {
+        throw ApiError.UnauthorisedError();
+    }
+
+
     const user = await pool.query(`
-    SELECT * FROM users WHERE user_id = $1
-    `,[useremail]);
+    SELECT * FROM users WHERE id = $1
+    `,[userData.id]);
     const userDto = new UserDto(user.rows[0]);
     const tokens = tokenService.generateTokens({...userDto});
     //console.log(tokens);
     //console.log(userDto.id +" " + tokens.refreshToken);
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
     return {...tokens, user: userDto}
-*/
+
 
 }
 async getAllUsers() {

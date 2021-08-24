@@ -24,6 +24,10 @@ module.exports = function(req, res, next) {
             console.log('no userData');
             return next(ApiError.UnauthorisedError());
         }
+        // ЕСЛИ РАЗЛОГИНИЛСЯ??? NO REFRESH TOKEN BUT ACESS TOKEN EXIST!!!!!!!!!!!
+
+
+
         req.user = userData; // ?????
         next();
         

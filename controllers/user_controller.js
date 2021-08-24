@@ -64,6 +64,7 @@ class UserController {
         try{
            console.log('token delete');
             const {refreshToken} = req.cookies;
+            console.log(refreshToken);
             const token = await userService.logout(refreshToken);
             res.clearCookie('refreshToken'); // delete cookie
             return res.status(204).json({message:'token deleted'});
@@ -78,8 +79,9 @@ class UserController {
     async refresh(req, res, next) {
        // console.log(req);
         try{
+           // console.log(req.cookies);
             const {refreshToken} = req.cookies;
-            console.log(req.cookies);
+           // console.log(refreshToken);
             const  userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
             return res.json(userData);

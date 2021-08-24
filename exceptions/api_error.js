@@ -12,4 +12,7 @@ constructor(status, message, errors = []) {
     static BedRequest(message, errors =[]) {
         return new ApiError(400, message, errors);
     }
+    static BedRequestAlreadyExist(message, errors =[]) {
+        return new ApiError(409, message, errors);
+    }
 }
