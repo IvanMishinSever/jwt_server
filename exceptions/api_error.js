@@ -15,4 +15,10 @@ constructor(status, message, errors = []) {
     static BedRequestAlreadyExist(message, errors =[]) {
         return new ApiError(409, message, errors);
     }
+    static BedRequestUserNotFound(message, errors =[]) {
+        return new ApiError(404, message, errors);
+    }
+    static BedRequestWrongPassword(message, errors =[]) {
+        return new ApiError(401, message, errors);
+    }
 }

@@ -32,6 +32,7 @@ class UserController {
     async login(req, res, next){
         try {
             const {useremail, user_password} = req.body;
+            console.log('CookiesLOGIN: ', req.cookies)
             const  userData = await userService.login(useremail, user_password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
            
@@ -63,13 +64,20 @@ class UserController {
     async logout(req, res, next) {
         try{
            console.log('token delete');
-            const {refreshToken} = req.cookies;
-            console.log(refreshToken);
-            const token = await userService.logout(refreshToken);
+           //console.log(req)
+           
+           const {refreshToken} = req.cookies;
+           console.log('CookiesLOGOUT: ', refreshToken)
+           //console.log("reft" + refreshToken);
+           const token = await userService.logout(refreshToken);
+           
+           // res.clearCookie('refreshToken',{domain: "http://localhost:3000"});
             res.clearCookie('refreshToken'); // delete cookie
+          // res.cookie('refreshToken', "asd");
             return res.status(204).json({message:'token deleted'});
+             
            // return res.json(token);
-          
+           //return res.json({message:'token deleted'});
 
         } catch(e) {
             next(e);

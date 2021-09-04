@@ -7,5 +7,5 @@
     "smtp-user": "mishinin8@gmail.com",
     "smtp-password": "perumachu2020",
     "api-url": "http://localhost:4001",
-    "client-url": "http://yandex.ru"
+    "client-url": "http://localhost:3000"
 }

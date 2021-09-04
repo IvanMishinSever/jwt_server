@@ -71,6 +71,7 @@ async registerUsers(useremail, user_password) {
         //
         //
         
+       //отключил почту НИЖЕ 
         await mailService.sendActivationMail(useremail, `${url}/api/auth/activate/${activationLink}`);
 
         const userDto = new UserDto(getnewUser.rows[0]);
@@ -122,14 +123,14 @@ async login(useremail, user_password) {
     `,[useremail]);
     //console.log(user);
     if (user.rows.length === 0) {
-       throw ApiError.BedRequest(`User with the email ${useremail}  is NOT found!`);
+       throw ApiError.BedRequestUserNotFound(`User with the email ${useremail}  is NOT found!`);
     }
     //CHECKING EQUAL PASSWORDS
     const gotpassword = user.rows[0].user_password;
     //console.log(gotpassword);
     const isPassEquels = await bcrypt.compare(user_password, gotpassword);
     if (!isPassEquels) {
-        throw ApiError.BedRequest(`Wrong password!`);
+        throw ApiError.BedRequestWrongPassword(`Wrong password!`);
      }
      //
      //console.log(user);
