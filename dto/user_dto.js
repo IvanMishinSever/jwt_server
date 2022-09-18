@@ -21,6 +21,6 @@ module.exports = class UserDto {
     constructor(model) {
         this.useremail =model.useremail;
         this.id = model.id;  // must be change(like mongo db)
-        this.isActivated =model.isActivated;
+        this.isActivated =model.is_activated;
     }
 }

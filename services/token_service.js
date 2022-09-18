@@ -7,7 +7,7 @@ const jwrRs = config.get('jwt-refresh-secret');
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
-    password: "Book2021",
+    password: "root1987",
     host: "localhost",
     port: 5432,
     database: "jwtproject"
@@ -27,7 +27,7 @@ const pool = new Pool({
 //
 class TokenService {
     generateTokens(payload) {
-        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'40s'}); //LIFE TOKENS
+        const accessToken = jwt.sign(payload, jwrAs, {expiresIn:'5s'}); //LIFE TOKENS
         const refreshToken = jwt.sign(payload, jwrRs, {expiresIn:'30d'});
         return {
             accessToken,

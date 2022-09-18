@@ -32,8 +32,9 @@ class UserController {
     async login(req, res, next){
         try {
             const {useremail, user_password} = req.body;
-            console.log('CookiesLOGIN: ', req.cookies)
+          //  console.log('CookiesLOGIN: ', req.cookies)
             const  userData = await userService.login(useremail, user_password);
+            console.log("userDATA" + JSON.stringify(userData));
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 38*24*60*60*1000, httpOnly: true});
            
             return res.json(userData);
@@ -67,7 +68,7 @@ class UserController {
            //console.log(req)
            
            const {refreshToken} = req.cookies;
-           console.log('CookiesLOGOUT: ', refreshToken)
+          // console.log('CookiesLOGOUT: ', refreshToken)
            //console.log("reft" + refreshToken);
            const token = await userService.logout(refreshToken);
            
@@ -103,7 +104,7 @@ class UserController {
         try{
             console.log('work get');
             const users = await userService.getAllUsers();
-            console.log(users);
+           // console.log(users);
              return res.json(users);
 
         } catch(e) {

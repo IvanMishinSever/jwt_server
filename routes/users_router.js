@@ -1,12 +1,12 @@
 
 const express = require('express');
 const {check} = require('express-validator');
-const userControllers = require('../controllers/user_controller.js');
+const usersControllers = require('../controllers/user_controller.js');
 
 
 
 const usersRouter = express.Router();
 
-usersRouter.get('/',userControllers.getAllUsers);
+usersRouter.get('/',usersControllers.getAllUsers);
 
 module.exports = usersRouter;

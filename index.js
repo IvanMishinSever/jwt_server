@@ -45,12 +45,10 @@ app.use(cors({
 
 
 /*
-  let whitelist = [host]
+  let whitelist = [host, 'http://localhost:4001']
   var corsOptions = {
     credentials: true,
-    origin: 'http://localhost:3000'
-    /*
-    function(origin, callback) {
+    origin: function(origin, callback) {
       if (whitelist.indexOf(origin) !== -1) {
         console.log("ss0" + whitelist.indexOf(origin));
         console.log(origin);

@@ -3,7 +3,7 @@
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
-    password: "Book2021",
+    password: "root1987",
     host: "localhost",
     port: 5432,
     database: "jwtproject"
@@ -72,7 +72,7 @@ async registerUsers(useremail, user_password) {
         //
         
        //отключил почту НИЖЕ 
-        await mailService.sendActivationMail(useremail, `${url}/api/auth/activate/${activationLink}`);
+      //  await mailService.sendActivationMail(useremail, `${url}/api/auth/activate/${activationLink}`);
 
         const userDto = new UserDto(getnewUser.rows[0]);
         //console.log(userDto);
@@ -133,7 +133,7 @@ async login(useremail, user_password) {
         throw ApiError.BedRequestWrongPassword(`Wrong password!`);
      }
      //
-     //console.log(user);
+     console.log(user);
      const userDto = new UserDto(user.rows[0]);
      const tokens = tokenService.generateTokens({...userDto});
      //console.log(tokens);
@@ -209,7 +209,7 @@ async refresh(refreshToken) {
 }
 async getAllUsers() {
     const users = await pool.query(`SELECT * FROM users`);
-   // console.log(users);
+    console.log(users);
     return users.rows;
 }
 }
