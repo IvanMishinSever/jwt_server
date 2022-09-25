@@ -1,6 +1,11 @@
 
 
-const Pool = require('pg').Pool;
+//const Pool = require('pg').Pool;
+const pool = require('../config/db.js');
+
+
+
+/*
 const pool = new Pool({
     user: "postgres",
     password: "root1987",
@@ -14,7 +19,7 @@ const pool = new Pool({
         console.log('Success baby!');
     }
 });
-
+*/
 //
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');

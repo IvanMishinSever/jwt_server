@@ -1,3 +1,7 @@
+// DВРОДЕ НЕ УЧАСТВУЕТ В ПРИЛОЖЕНИИ
+
+
+
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
@@ -112,3 +116,4 @@ class UsersAuth_controllers {
    
 }
 module.exports = new UsersAuth_controllers();
+
