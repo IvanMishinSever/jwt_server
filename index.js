@@ -87,6 +87,11 @@ app.get('/get-cookie', (req, res) => {
   console.log('Cookie: ', req.cookies)
   res.send('Get Cookie')
 })
+ // Маршрутизируем GET-запрос http://ваш_сайт/test
+ app.get('/api/test', (req, res) => {
+  console.log('test');
+  res.send('Тест РАБОТАЕТ!');
+});
 
 
 
