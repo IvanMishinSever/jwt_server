@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
+
 const app = express();
 const errorMiddleware = require('./middlewares/error_middleware');
 const authMiddleware = require('./middlewares/auth_middleware');
@@ -39,7 +40,7 @@ app.use((req, res, next) => {
 
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3000'
+  origin: host,
 }));
 
 
