@@ -5,7 +5,7 @@ const host = config.get('smtp-host');
 const port = config.get('smtp-port');
 const user = config.get('smtp-user');
 const pass= config.get('smtp-password');
-const url= config.get('api-url');
+const url= config.get('smtp-url-activation');
 
 
 class MailService {

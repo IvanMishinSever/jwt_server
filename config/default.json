@@ -2,10 +2,11 @@
     "serverPort": 4001,
     "jwt-access-secret":"africa-forever",
     "jwt-refresh-secret":"argentina-forever",
-    "smtp-host": "smtp.gmail.com",
-    "smtp-port": 587,
-    "smtp-user": "mishinin8@gmail.com",
-    "smtp-password": "perumachu2020",
+    "smtp-host": "smtp.timeweb.ru",
+    "smtp-port": 2525,
+    "smtp-user": "support@wscproject.ru",
+    "smtp-password": "",
+    "smtp-url-activation":"http://example.1022271-cm40298.tmweb.ru",
     "api-url": "http://localhost:4001",
     "client-url": "http://localhost:3000"
 }

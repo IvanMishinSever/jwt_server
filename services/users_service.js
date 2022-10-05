@@ -29,7 +29,7 @@ const ApiError = require('../exceptions/api_error');
 const tokenService = require('./token_service');
 const UserDto = require('../dto/user_dto');
 const config = require('config');
-const url= config.get('api-url');
+const url= config.get('smtp-url-activation');
 const secretAccessToken= config.get('jwt-access-secret');
 const secretRefreshToken= config.get('jwt-refresh-secret');
 
