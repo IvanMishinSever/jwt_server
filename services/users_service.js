@@ -217,5 +217,8 @@ async getAllUsers() {
     console.log(users);
     return users.rows;
 }
+
+
+
 }
 module.exports = new UserService();
