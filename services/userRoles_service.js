@@ -1,7 +1,7 @@
 class UserRoleService {
 
 //get role of user
-async getRoleUser() {
+ getRoleUser() {
 
     //const users = await pool.query(`SELECT * FROM users`);
     //console.log(users);
